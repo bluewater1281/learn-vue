@@ -1,2 +1,1 @@
-# learn-vue
-学习vue框架
+# vue 学习vue框架
