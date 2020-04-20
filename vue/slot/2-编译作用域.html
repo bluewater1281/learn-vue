@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编译作用域</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- 编译作用域 -->
+        <!-- 当你想在插槽中使用数据时，例如： -->
+        <navigation-link url="/baidu.com">
+            输出组件中的url: {{ url }}
+        </navigation-link>
+    </div>
+    <script>
+        Vue.component('navigation-link',{
+            data: function() {
+                return {
+                    user: {
+                        name: 'tianxia'
+                    }
+                }
+            },
+            props: ['url'],
+            template: `
+                <div>
+                    <h1>组件内部输出：{{ url }}</h1>
+                    <slot></slot>
+                </div>
+            `
+        })
+        var app = new Vue({
+            el: '#root',
+        })
+
+        //一条规则：
+    </script>
+</body>
+</html>

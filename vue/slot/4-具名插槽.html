@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>具名插槽</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- 具名插槽 -->
+        <div>
+            <base-layout>
+                
+            </base-layout>
+        </div>
+
+        <!-- v-slot指令 -->
+        <div>
+            <base-layout1>
+                <template v-slot:header>
+                    <h1>header</h1>
+                </template>
+                <template>
+                    <h1>main</h1>
+                </template>
+                <template v-slot:footer>
+                    <h1>footer</h1>
+                </template>
+            </base-layout1>
+        </div>
+    </div>
+    <script>
+        Vue.component('base-layout',{
+            template: `
+                <div>
+                    <header>
+                        我想放头部的内容在里面
+                    </header>
+                    <main>
+                        我想把主要的内容放在里面
+                    </main>
+                    <footer>
+                        底部的内容
+                    </footer>
+                </div>
+            `
+        })
+        //不带name的slot出口会带有隐藏的名字default
+        Vue.component('base-layout1',{
+            template: `
+                <div>
+                    <header>
+                        <slot name="header"></slot>
+                    </header>
+                    <main>
+                        <slot></slot>
+                    </main>
+                    <footer>
+                        <slot name="footer"></slot>
+                    </footer>
+                </div>
+            `
+        })
+        var app = new Vue({
+            el: '#root',
+
+        })
+    </script>
+</body>
+</html>

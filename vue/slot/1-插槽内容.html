@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>插槽</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- 插槽内容 -->
+        <navigation-link>
+            风花雪月
+            <h1>曾经是一个诗意的人</h1>
+        </navigation-link>
+    </div>
+    <script>
+        //创建一个app-log组件
+        var appLog = {
+            template: '<div>我是一个app-log组件</div>'
+        }
+        // 插槽内容
+        Vue.component('navigation-link',{
+            components: {
+                "app-log": appLog,
+            },
+            template: `
+                <div>
+                    <slot></slot>
+                    <app-log></app-log>
+                </div>
+            `
+        })
+        var app = new Vue({
+            el: '#root',
+
+        })
+    </script>
+</body>
+</html>

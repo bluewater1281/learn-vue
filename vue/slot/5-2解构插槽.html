@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解构插槽</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <current-user v-slot="{user}">
+            {{ user.firstName }}
+        </current-user>
+
+        <current-user v-slot="{user:person}">
+            {{ person.firstName }}
+        </current-user>
+
+        <current-user v-slot="{ user={ firstName: 'Guest' }}">
+            {{ user.firstName }}
+        </current-user>
+    </div>
+    <script>
+        Vue.component('current-user',{
+            data: function() {
+                return {
+                    user: {
+                        firstName: '天下',
+                        lastName: '晓晓'
+                    }
+                }
+            },
+            template: `
+                <div>
+                    <slot v-bind:user="user"></slot>
+                </div>
+            `
+        })
+        var app = new Vue({
+            el: '#root',
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后备内容</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- 后备内容 -->
+        <div>
+            <submit-button>
+                save
+            </submit-button>
+        </div>
+    </div>
+    <script>
+        Vue.component('submit-button',{
+            template: `
+                <div>
+                    <slot>Submit</slot>
+                </div>
+            `
+        })
+        var app = new Vue({
+            el: '#root',
+
+        })
+    </script>
+</body>
+</html>

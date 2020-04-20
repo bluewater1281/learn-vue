@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>具名插槽的缩写</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <base-layout>
+            <template #header>
+                <h1>header</h1>
+            </template>
+            <template #main>
+                <h1>main</h1>
+            </template>
+            <template #footer>
+                <h1>footer</h1>
+            </template>
+        </base-layout>
+
+        <current-user #default="{user}">
+            {{ user.firstName }}
+        </current-user>
+    </div>
+    <script>
+        Vue.component('base-layout',{
+            template: `
+                <div>
+                    <slot name="header"></slot>
+                    <slot name="main"></slot>
+                    <slot name="footer"></slot>
+                </div>
+            `
+        })
+        Vue.component('current-user',{
+            data: function() {
+                return {
+                    user: {
+                        firstName: '天下',
+                        lastName: '晓晓'
+                    }
+                }
+            },
+            template: `
+                <div>
+                    <slot v-bind:user="user"></slot>
+                </div>
+            `
+        })
+        var app = new Vue({
+            el: '#root',
+
+        })
+    </script>
+</body>
+</html>

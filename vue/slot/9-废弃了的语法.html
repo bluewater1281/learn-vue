@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>废弃了的语法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <todo-list v-bind:todos="todos">
+            <template slot="todo" slot-scope="{ todo }">
+              <span v-if="todo.isComplete">✓</span>
+              {{ todo.text }}
+            </template>
+        </todo-list>
+    </div>
+    <script>
+        Vue.component('todo-list',{
+            data: function() {
+                return {
+                    todos: [
+                        { text: 'hhah',isComplete: true },
+                        { text: 'hhah',isComplete: false }
+                    ]
+                }
+            },
+            template: `
+                <div>
+                    <ul>
+                        <li 
+                            v-for="todo in todos"
+                            :key="todo.id"
+                        >
+                            <slot name="todo" v-bind:todo="todo"></slot>
+                            {{ todo.text }}
+                        </li>
+                    </ul>
+                </div>
+            `
+        })
+        var app = new Vue({
+            el: '#root',
+            data: function() {
+                todos: ''
+            }
+        })
+    </script>
+</body>
+</html>
