@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>废弃了的语法slot</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <base-layout>
+            <template slot="header">
+                <h1>Header</h1>
+            </template>
+            <p>main</p>
+            <template slot="footer">
+                <h1>Footer</h1>
+            </template>
+        </base-layout>
+
+        <!--或者直接把一个slot放在普通元素上-->
+        <base-layout1>
+            <h1 slot="header">Header</h1>
+            <p>main</p>
+            <h1 slot="footer">Footer</h1>
+        </base-layout1>
+    </div>
+<script>
+    Vue.component('base-layout',{
+        template: `
+            <div>
+                <header>
+                    <slot name="header"></slot>
+                </header>
+                <main>
+                    <slot></slot>
+                </main>
+                <footer>
+                    <slot name="footer"></slot>
+                </footer>
+            </div>
+        `
+    })
+
+    Vue.component('base-layout1',{
+        template: `
+            <div>
+                <header>
+                    <slot name="header"></slot>
+                </header>
+                <main>
+                    <slot></slot>
+                </main>
+                <footer>
+                    <slot name="footer"></slot>
+                </footer>
+            </div>
+        `
+    })
+    var app = new Vue({
+        el: '#root',
+
+    })
+</script>
+</body>
+</html>

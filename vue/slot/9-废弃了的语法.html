@@ -8,10 +8,10 @@
 </head>
 <body>
     <div id="root">
-        <todo-list v-bind:todos="todos">
+        <todo-list>
             <template slot="todo" slot-scope="{ todo }">
-              <span v-if="todo.isComplete">✓</span>
-              {{ todo.text }}
+                <span v-if="todo.isComplete">✓</span>
+                {{ todo.text }}
             </template>
         </todo-list>
     </div>
@@ -20,16 +20,15 @@
             data: function() {
                 return {
                     todos: [
-                        { text: 'hhah',isComplete: true },
-                        { text: 'hhah',isComplete: false }
+                        { text: 'hha1',isComplete: true },
+                        { text: 'xiao',isComplete: false }
                     ]
                 }
             },
             template: `
                 <div>
                     <ul>
-                        <li 
-                            v-for="todo in todos"
+                        <li v-for="todo in todos"
                             :key="todo.id"
                         >
                             <slot name="todo" v-bind:todo="todo"></slot>
@@ -42,7 +41,9 @@
         var app = new Vue({
             el: '#root',
             data: function() {
-                todos: ''
+                return {
+                    //todos: ''
+                }
             }
         })
     </script>

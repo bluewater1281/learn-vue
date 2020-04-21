@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>废弃了的语法slot-scope</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <slot-example>
+            <template slot-scope="slotProps">
+                {{ slotProps.user.firstName }}
+            </template>
+        </slot-example>
+
+        <slot-example1>
+            <h1 slot-scope="{msg}">
+                {{ msg }}
+            </h1>
+        </slot-example1>
+    </div>
+<script>
+    Vue.component('slot-example',{
+        data: function() {
+            return {
+                user: {
+                    firstName: 'tianxia',
+                    lastName: 'xiaoxiao'
+                }
+            }
+        },
+        template: `
+                <div>
+                    <slot v-bind:user="user"></slot>
+                </div>
+            `
+    })
+
+    Vue.component('slot-example1',{
+        data: function() {
+            return {
+                user: {
+                    firstName: 'tianxia',
+                    lastName: 'xiaoxiao',
+                },
+                msg: '信息'
+            }
+        },
+        template: `
+                <div>
+                    <slot v-bind:msg="msg"></slot>
+                </div>
+            `
+    })
+
+    var app = new Vue({
+        el: '#root',
+    })
+</script>
+</body>
+</html>
