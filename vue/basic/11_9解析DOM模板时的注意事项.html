@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解析DOM模板时的注意事项</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <like-log>
+
+        </like-log>
+    </div>
+<script>
+    const blog = {
+        template: "<div>日志内容</div>"
+    }
+    Vue.component("like-log",{
+        components: {
+          "blog-post-row":blog
+        },
+        template: `
+            <div>
+                <table>
+                    <tr>
+                        <td>123</td>
+                    </tr>
+                    <blog-post-row></blog-post-row>
+                </table>
+            </div>
+        `
+    })
+    var app = new Vue({
+        el: '#root',
+    })
+</script>
+</body>
+</html>

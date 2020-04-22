@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>监听子组件事件</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        123
+        <div :style="{ fontSize: postFontSize + 'em'}">
+            <blog-post
+                v-for="post in posts"
+                v-bind:key="post.id"
+                v-bind:title="post.title"
+                @click-add="onLargeEvent"
+            >
+
+            </blog-post>
+        </div>
+    </div>
+<script>
+    Vue.component('blog-post',{
+        props: ['title'],
+        template: `
+            <div>
+                <button @click="$emit('click-add',0.1)">+</button>
+                <p>{{ title }}</p>
+            </div>
+        `
+    })
+    var app = new Vue({
+        el: '#root',
+        data: {
+            posts: [
+                { id: 1, title: '天下1' },
+                { id: 2, title: '天下2' },
+                { id: 3, title: '天下3' }
+            ],
+            postFontSize: 1
+        },
+        methods: {
+            onLargeEvent(val) {
+                this.postFontSize += val;
+            }
+        }
+    })
+</script>
+</body>
+</html>
