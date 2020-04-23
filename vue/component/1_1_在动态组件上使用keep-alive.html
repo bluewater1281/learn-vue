@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在动态组件上使用keep-alive</title>
+    <style>
+        .active {
+            background: #d00;
+        }
+        .selected {
+            background: #9ff;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <button
+            v-for="tab in tabs"
+            :title="tab"
+            :class="{ active: currentTab === tab }"
+            @click="currentTab = tab"
+        >
+            {{ tab }}
+        </button>
+
+        <keep-alive>
+            <component :is="currentTableCom"></component>
+        </keep-alive>
+    </div>
+<script>
+    Vue.component("tab-home",{
+        data: function() {
+            return {
+                lists: [
+                    { id:1,title:'home-content1' },
+                    { id:2,title:'home-content2' },
+                    { id:3,title:'home-content3' }
+                ],
+                select: null
+            }
+        },
+        template: `
+            <div>
+                <ul>
+                    <li
+                        v-for="item in lists"
+                        :key="item.id"
+                        :class="{ selected: select === item }"
+                        v-on:click="select = item"
+                    >
+                        {{ item.title }}
+                    </li>
+                </ul>
+                <div
+                    v-if="select"
+                >
+                    <h1>{{ select.title }}</h1>
+                </div>
+            </div>
+        `
+    })
+    Vue.component('tab-posts',{
+        template: "<div>tab-posts</div>"
+    })
+    var app = new Vue({
+        el: '#root',
+        data: {
+            tabs: ["Home","Posts"],
+            currentTab: "Home"
+        },
+        computed: {
+            currentTableCom: function() {
+                return "tab-" + this.currentTab.toLowerCase();
+            }
+        }
+    })
+</script>
+</body>
+</html>

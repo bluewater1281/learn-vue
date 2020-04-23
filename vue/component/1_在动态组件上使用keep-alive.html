@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在动态组件上使用keep-alive</title>
+    <style>
+        .active {
+            background: #d00;
+        }
+        .selected {
+            background: #f99;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <button
+            v-for="tab in tabs"
+            v-bind:key="tab"
+            v-bind:class="{ active: currentTab === tab }"
+            v-on:click="currentTab = tab"
+        >
+            {{ tab }}
+        </button>
+
+        <keep-alive>
+            <component v-bind:is="currentTabComponent"></component>
+        </keep-alive>
+    </div>
+<script>
+
+    Vue.component("tab-posts",{
+        data: function() {
+            return {
+                posts: [
+                    {
+                        id: 1,
+                        title: "Cat Ipsum",
+                    },
+                    {
+                        id: 2,
+                        title: "Hipster Ipsum",
+                    },
+                    {
+                        id: 3,
+                        title: "Cupcake Ipsum",
+                    }
+                ],
+                selectedPost: null
+            }
+        },
+        template: `
+            <div>
+                <ul>
+                    <li
+                        v-for="post in posts"
+                        v-bind:key="post.id"
+                        v-bind:class="{ selected: post===selectedPost }"
+                        v-on:click="selectedPost = post"
+                    >
+                        {{ post.title }}
+                    </li>
+                </ul>
+                <div>
+                    <div
+                        v-if="selectedPost"
+                    >
+                        <h3>{{ selectedPost.title }}</h3>
+                        <div v-html="selectedPost.content">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `
+    })
+
+    Vue.component("tab-archive",{
+        template: "<div>Archive component</div>"
+    })
+    var app = new Vue({
+        el: '#root',
+        data: {
+            currentTab: "Posts",
+            tabs: ["Posts","Archive"]
+        },
+        computed: {
+            currentTabComponent: function() {
+                return "tab-" + this.currentTab.toLowerCase();
+            }
+        }
+    })
+</script>
+</body>
+</html>
