@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>访问父级组件实例</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <parent-component></parent-component>
+    </div>
+<script>
+    const childComponent = {
+        template: `
+            <div>
+                子组件
+                {{ this.$parent.msg }}
+            </div>
+        `
+    }
+    Vue.component("parent-component",{
+        data: function() {
+            return {
+                msg: "父组件上的信息"
+            }
+        },
+        components: {
+            "child-component": childComponent
+        },
+        template: `
+            <div>
+                <h1>父组件</h1>
+                <child-component></child-component>
+            </div>
+        `
+    })
+    var app = new Vue({
+        el: '#root',
+    })
+</script>
+</body>
+</html>

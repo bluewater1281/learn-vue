@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>访问根实例</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+
+    </div>
+<script>
+    var app = new Vue({
+        el: '#root',
+        data: {
+            foo: 123
+        },
+        computed: {
+            bar: function() {
+                return "tianxia";
+            }
+        },
+        methods: {
+            baz: function() {
+
+            }
+        }
+    })
+
+    console.log("this",this);               //这里的this是window
+    console.log('this.$root',this.$root);    //因此这里的this.$root是undefined
+
+    console.log("app.$root",app.$root);
+    console.log("获取根组件的数据1",app.$root.foo);
+    //写入根组件的数据
+    app.$root.foo = 456;
+    console.log("获取根组件的数据2",app.$root.foo);
+    console.log("访问根组件的计算属性:",app.$root.bar);
+    console.log("调用根组件的方法:",app.$root.baz);
+
+
+</script>
+</body>
+</html>
