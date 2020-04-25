@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>X-Template</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
     <div id="root">
-
+        <hello-world></hello-world>
     </div>
+    <script type="text/x-template" id="hello-world-template">
+        <p>Hello,World!</p>
+    </script>
+
     <script>
+        Vue.component("hello-world",{
+            template: '#hello-world-template'
+        })
         var app = new Vue({
             el: '#root',
         })
     </script>
-</body>x
+</body>
 </html>

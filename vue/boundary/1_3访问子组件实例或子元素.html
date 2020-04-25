@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>访问子组件实例或子元素</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <base-input ref="usernameInput"></base-input>
+        <button v-on:click="handleEvent">聚焦</button>
+    </div>
+<script>
+    Vue.component("base-input",{
+        template: `
+            <input ref="input"/>
+        `,
+        methods: {
+            test: function () {
+                alert(1)
+            },
+            inputFocus: function () {
+                this.$refs.input.focus()
+            }
+        }
+    })
+    var app = new Vue({
+        el: '#root',
+        data: {
+
+        },
+//        template: `<div>
+//                111
+//                <base-input ref="usernameInput"/>
+//                <button @click="handleEvent">聚焦2</button>
+//        </div>
+//        `,
+        methods: {
+            handleEvent: function() {
+                this.$refs.usernameInput.inputFocus();
+                this.$refs.usernameInput.test();
+            }
+        }
+    })
+    console.log(app.$refs.usernameInput);
+</script>
+</body>
+</html>
